@@ -1,17 +1,13 @@
-{ home-manager, self }:
-
-{
-  { config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
   
-  let
-    inherit (lib) (pkgs.stdenv) writeShellScriptBin
-  in
-  {
-    home = {
-      inherit stateVersion;
-      packages = [
-        (writeShellScriptBin "cryptdrive" (builtins.readFile ../cryptdrive.sh))
-      ];
-    }
+let
+  inherit (lib) (pkgs.stdenv) writeShellScriptBin;
+in
+{
+  home = {
+    inherit stateVersion;
+    packages = [
+      (writeShellScriptBin "cryptdrive" (builtins.readFile ../cryptdrive.sh))
+    ];
   }
 }

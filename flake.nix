@@ -14,7 +14,7 @@
   in {
     homeModules = {
       main = import ./hm-module.nix {
-        inherit self home-manager;
+        inherit self inputs.home-manager;
       };
       default = self.homeModules.main;
     };

@@ -1,23 +1,18 @@
 {
-  description = "cryptdrive.sh";
+  description = "Installs cryptdrive to system packages for encrypted flash drive management";
 
-  inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-#  inputs.home-manager = {
-#    url = "github:nix-community/home-manager";
-#    inputs.nixpkgs.follows = "nixpkgs";
-#  };
-
-  outputs = { self, ... }@inputs:
-  let
-    inherit (self) outputs;
-    stateVersion = "25.11";
-  in {
-    homeModules = {
-      main = import ./hm-module.nix {
-        inherit self ;
-      };
-      default = self.homeModules.main;
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+  };
+  
+  outputs = { self, nixpkgs }: {
+    nixModules.default = { config, pkgs, ... }:
+    {
+      environment.systemPackages = with pkgs; [
+        (writeShellScriptBin "cryptdrive" (builtins.readFile ./cryptdrive.sh))
+      ];
     };
   };
+
 }
 

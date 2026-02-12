@@ -2,10 +2,10 @@
   description = "cryptdrive.sh";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-  inputs.home-manager = {
-    url = "github:nix-community/home-manager";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
+#  inputs.home-manager = {
+#    url = "github:nix-community/home-manager";
+#    inputs.nixpkgs.follows = "nixpkgs";
+#  };
 
   outputs = { self, ... }@inputs:
   let
@@ -14,7 +14,7 @@
   in {
     homeModules = {
       main = import ./hm-module.nix {
-        inherit self inputs.home-manager;
+        inherit self ;
       };
       default = self.homeModules.main;
     };
